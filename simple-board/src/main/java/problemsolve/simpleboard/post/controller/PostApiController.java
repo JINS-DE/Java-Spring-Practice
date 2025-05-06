@@ -3,6 +3,7 @@ package problemsolve.simpleboard.post.controller;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import problemsolve.simpleboard.common.Api;
@@ -37,7 +38,7 @@ public class PostApiController {
 
     @GetMapping("/all")
     public Api<List<PostEntity>> list(
-        @PageableDefault(page=0, size=10)
+        @PageableDefault(page=0, size=10, sort = "id", direction = Sort.Direction.DESC)
         Pageable pageable
     ){
         return postService.all(pageable);
