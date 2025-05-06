@@ -1,14 +1,20 @@
 package problemsolve.memorydb.user.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
-import problemsolve.memorydb.entity.Entity;
 
-@EqualsAndHashCode(callSuper = true) // Entity 클래스(부모 클래스)의 id 필드도 equals()와 hashCode()연산에 사용할 수 있게함
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UserEntity extends Entity {
+@Entity(name = "user")
+public class UserEntity {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String name;
     private int score;

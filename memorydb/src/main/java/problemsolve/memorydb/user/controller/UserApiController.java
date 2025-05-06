@@ -11,7 +11,7 @@ import problemsolve.memorydb.user.service.UserService;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("/api/user")
 @RequiredArgsConstructor // 생성자 메소드로 채워달라는 어노테이션
 public class UserApiController {
 
@@ -36,7 +36,7 @@ public class UserApiController {
     public void delete(
         @PathVariable Long id
     ){
-        userService.delete(id);
+//        userService.delete(id);
     }
 
     @GetMapping("/id/{id}")
@@ -53,6 +53,15 @@ public class UserApiController {
             @RequestParam int score
     ){
         return userService.filterScore(score);
+
+    }
+
+    @GetMapping("/min_max")
+    public List<UserEntity> findScore(
+            @RequestParam int min,
+            @RequestParam int max
+    ){
+        return userService.filterScore(min,max);
 
     }
 

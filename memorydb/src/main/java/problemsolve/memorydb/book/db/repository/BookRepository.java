@@ -1,10 +1,8 @@
 package problemsolve.memorydb.book.db.repository;
 
-import org.springframework.stereotype.Service;
+import org.springframework.data.jpa.repository.JpaRepository;
 import problemsolve.memorydb.book.db.entity.BookEntity;
-import problemsolve.memorydb.db.SimpleDataRepository;
 
-@Service
-public class BookRepository extends SimpleDataRepository<BookEntity, Long> {
+public interface BookRepository extends JpaRepository<BookEntity, Long> {
 
 }
