@@ -2,8 +2,11 @@ package problemsolve.simpleboard.post.service;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import problemsolve.simpleboard.board.db.BoardRepository;
+import problemsolve.simpleboard.common.Api;
+import problemsolve.simpleboard.common.Pagination;
 import problemsolve.simpleboard.post.db.PostEntity;
 import problemsolve.simpleboard.post.db.PostRepository;
 import problemsolve.simpleboard.post.model.PostRequest;
@@ -18,7 +21,6 @@ import java.util.List;
 public class PostService {
     private final PostRepository postRepository;
     private final BoardRepository boardRepository;
-//    private final ReplyService replyService;
     public PostEntity create(
         PostRequest postRequest
 
@@ -63,8 +65,20 @@ public class PostService {
                 );
     }
 
-    public List<PostEntity> all() {
-        return postRepository.findAll();
+    public Api<List<PostEntity>> all(Pageable pageable) {
+        var list = postRepository.findAll(pageable);
+        var pagination = Pagination.builder()
+                .page(list.getNumber())
+                .size(list.getSize())
+                .currentElements(list.getNumberOfElements())
+                .totalElements(list.getTotalElements())
+                .totalPage(list.getTotalPages())
+                .build();
+        var response = Api.<List<PostEntity>>builder()
+                .body(list.toList())
+                .pagination(pagination)
+                .build();
+        return response;
     }
 
     public void delete(@Valid PostViewRequest postViewRequest) {

@@ -2,6 +2,7 @@ package problemsolve.simpleboard.board.db;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Where;
 import problemsolve.simpleboard.post.db.PostEntity;
 
 import java.util.List;
@@ -26,5 +27,7 @@ public class BoardEntity {
     @OneToMany(
             mappedBy = "board" // PostEntity안의 변수의 이름 board
     )
+    @Where(clause = "status='REGISTERED'") //조건절
+    @Builder.Default
     private List<PostEntity> postList = List.of();
 }

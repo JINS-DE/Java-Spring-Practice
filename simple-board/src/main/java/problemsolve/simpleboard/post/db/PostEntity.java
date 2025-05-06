@@ -41,5 +41,6 @@ public class PostEntity {
     @OneToMany(
             mappedBy = "post"
     )
+    @Builder.Default
     private List<ReplyEntity> replyList = List.of();
 }
